@@ -15,4 +15,4 @@ This project allows two players to play a standard darts game (e.g. 501), track 
 - Built with modular TypeScript files
 
 ## 🚀 Live Demo
-https://dandan-da.github.io/School-Darts/
+[https://dandan-da.github.io/School-Darts/](https://dandan-da.github.io/School-Darts/)
