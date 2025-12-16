@@ -2,6 +2,19 @@
    Defines layout, theming, animations, and component styling. */
 /* Simple, readable styles for the Darts Score Keeper application */
 
+/* Design tokens: spacing, radius, and focus ring */
+:root {
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --radius-2: 0.4rem;
+    --radius-3: 0.75rem;
+    --focus-ring: 2px solid #facc15;
+    --focus-offset: 2px;
+}
+
 /* Ensure consistent box sizing across all elements */
 *,
 *::before,
@@ -36,9 +49,10 @@ body {
 }
 
 .app-header .subtitle {
-    margin: 0.4rem 0 0;
+    margin: var(--space-2) 0 0;
     font-size: 0.95rem;
     color: #e5e7eb;
+    opacity: 0.9;
 }
 
 /* Main content grid layout */
@@ -61,7 +75,7 @@ body {
 /* Card component: containers for sections with fade-in animation */
 .card {
     background: #111827;
-    border-radius: 0.75rem;
+    border-radius: var(--radius-3);
     padding: 1rem 1.1rem 1.1rem;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
     border: 1px solid rgba(254, 226, 226, 0.2);
@@ -107,7 +121,7 @@ body {
 .field-group input,
 .field-group select {
     padding: 0.4rem 0.5rem;
-    border-radius: 0.4rem;
+    border-radius: var(--radius-2);
     border: 1px solid #166534;
     background: #020617;
     color: #f5f5f5;
@@ -154,6 +168,7 @@ body {
     justify-content: center;
     gap: 0.35rem;
     transition: transform 0.05s ease, box-shadow 0.05s ease, background 0.1s ease;
+    user-select: none;
 }
 
 /* Primary action button styling */
@@ -171,8 +186,8 @@ body {
 
 .primary-button:focus-visible,
 .secondary-button:focus-visible {
-    outline: 2px solid #facc15;
-    outline-offset: 2px;
+    outline: var(--focus-ring);
+    outline-offset: var(--focus-offset);
 }
 
 /* Secondary action button styling */
@@ -270,7 +285,18 @@ body {
 .table-wrapper {
     max-height: 260px;
     overflow: auto;
-    margin-top: 0.5rem;
+    margin-top: var(--space-2);
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+}
+
+/* Keep table headers visible while scrolling in the history area */
+.turns-table thead th,
+.score-table thead th {
+    position: sticky;
+    top: 0;
+    background: #111827;
+    z-index: 1;
 }
 
 .turn-form {
@@ -328,6 +354,27 @@ legend {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Respect user accessibility preference to reduce motion */
+@media (prefers-reduced-motion: reduce) {
+    .card {
+        animation: none;
+        transition: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    .score-table tbody tr,
+    .turns-table tbody tr {
+        transition: none;
+        transform: none;
+    }
+
+    .primary-button,
+    .secondary-button {
+        transition: none;
     }
 }
 
